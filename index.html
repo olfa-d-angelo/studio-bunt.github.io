@@ -3,216 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Bunt | Creative Art Collective</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <title>studio bunt</title>
+    <meta name="description" content="studio bunt is an art collective building drawing machines that translate light, sound and signals from space into ink.">
+    <meta property="og:title" content="studio bunt">
+    <meta property="og:description" content="Drawing machines that listen to light, sound and signals from space.">
+    <meta property="og:image" content="https://bunt-studio.com/images/works/dart-detail-2.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-    
-    <!-- Navigation -->
-    <header>
-        <div class="logo">
-            <a href="index.html">
-                <h1>Studio Bunt</h1>
-            </a>
-        </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="reveal-text">Welcome to Studio Bunt</h1>
-            <p class="reveal-text">A collaborative art studio creating vibrant visual experiences</p>
-            <a href="#gallery" class="btn">Explore Our Work</a>
-        </div>
-    </section>
+<header class="site-header">
+    <a class="wordmark" href="index.html">studio bunt</a>
+    <nav>
+        <a href="#works">works</a>
+        <a href="#research">research</a>
+        <a href="people.html">people</a>
+        <a href="#contact">contact</a>
+    </nav>
+</header>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <h2 class="section-title">Gallery</h2>
-        <div class="gallery-grid">
-            <!-- Art Item 1 -->
-            <div class="art-item">
-                <img src="images/placeholder.jpg" alt="Artwork 1">
-                <div class="art-overlay">
-                    <h3>Artwork Title 1</h3>
-                    <p>Medium, Year</p>
-                    <a href="artwork/artwork1.html" class="view-details">View Details</a>
-                </div>
-            </div>
-            
-            <!-- Art Item 2 -->
-            <div class="art-item">
-                <img src="images/placeholder.jpg" alt="Artwork 2">
-                <div class="art-overlay">
-                    <h3>Artwork Title 2</h3>
-                    <p>Medium, Year</p>
-                    <a href="artwork/artwork2.html" class="view-details">View Details</a>
-                </div>
-            </div>
-            
-            <!-- Art Item 3 -->
-            <div class="art-item">
-                <img src="images/placeholder.jpg" alt="Artwork 3">
-                <div class="art-overlay">
-                    <h3>Artwork Title 3</h3>
-                    <p>Medium, Year</p>
-                    <a href="artwork/artwork3.html" class="view-details">View Details</a>
-                </div>
-            </div>
-            
-            <!-- Art Item 4 -->
-            <div class="art-item">
-                <img src="images/placeholder.jpg" alt="Artwork 4">
-                <div class="art-overlay">
-                    <h3>Artwork Title 4</h3>
-                    <p>Medium, Year</p>
-                    <a href="artwork/artwork4.html" class="view-details">View Details</a>
-                </div>
-            </div>
-            
-            <!-- Art Item 5 -->
-            <div class="art-item">
-                <img src="images/placeholder.jpg" alt="Artwork 5">
-                <div class="art-overlay">
-                    <h3>Artwork Title 5</h3>
-                    <p>Medium, Year</p>
-                    <a href="artwork/artwork5.html" class="view-details">View Details</a>
-                </div>
-            </div>
-            
-            <!-- Art Item 6 -->
-            <div class="art-item">
-                <img src="images/placeholder.jpg" alt="Artwork 6">
-                <div class="art-overlay">
-                    <h3>Artwork Title 6</h3>
-                    <p>Medium, Year</p>
-                    <a href="artwork/artwork6.html" class="view-details">View Details</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="hero" style="padding:0">
+    <canvas class="plot" data-pens="70" aria-hidden="true"></canvas>
+    <div class="hint mono">move the cursor to bend the ink · click for a new sheet</div>
+    <div class="copy">
+        <h1>studio bunt</h1>
+        <p>An art collective building drawing machines that listen to light, sound and signals from space — and slowly write them down.</p>
+    </div>
+    <div class="readout mono">
+        sensor · light<br>
+        t = <b id="t">00:00:00</b><br>
+        x = <b id="x">0</b> · y = <b id="y">0</b><br>
+        lines drawn · <b id="n">0</b>
+    </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="about-content">
-            <h2 class="section-title">About Studio Bunt</h2>
-            <p>Studio Bunt is a collaborative art project founded in [year] by [founders]. Our work explores the intersection of [art themes] through a variety of mediums including [list mediums].</p>
-            <p>Our name "Bunt" (meaning "colorful" in German) reflects our commitment to vibrant, expressive art that challenges and delights viewers.</p>
-            <p>We believe in [your art philosophy or mission].</p>
-        </div>
-        <div class="about-image">
-            <img src="images/placeholder.jpg" alt="Studio Bunt workspace">
-        </div>
-    </section>
+<!-- ============ WORKS ============
+     To add a work: copy one <div class="card"> … </div> block, change the image and the text.
+     Add class "wide" to make a card span two columns. -->
+<section id="works">
+    <div class="sec-head"><h2>works</h2><span class="mono dim">plotter · ink · data</span></div>
+    <div class="grid">
 
-    <!-- News Feed Section -->
-    <section id="news" class="news-feed">
-        <h2 class="section-title">Latest News</h2>
-        <div class="news-grid">
-            <!-- News Item 1 -->
-            <article class="news-item">
-                <div class="news-date">April 12, 2025</div>
-                <h3>New Exhibition Opening</h3>
-                <p>Join us for the opening of our latest exhibition "Title" at Gallery Name on Date at Time.</p>
-                <a href="#" class="read-more">Read More</a>
-            </article>
-            
-            <!-- News Item 2 -->
-            <article class="news-item">
-                <div class="news-date">March 28, 2025</div>
-                <h3>Artist Interview</h3>
-                <p>Our lead artist was interviewed by Art Magazine about our creative process and upcoming projects.</p>
-                <a href="#" class="read-more">Read More</a>
-            </article>
-            
-            <!-- News Item 3 -->
-            <article class="news-item">
-                <div class="news-date">February 15, 2025</div>
-                <h3>Workshop Announcement</h3>
-                <p>We're hosting a series of workshops this spring. Learn techniques from our artists!</p>
-                <a href="#" class="read-more">Read More</a>
-            </article>
+        <div class="card wide">
+            <div class="frame"><img src="images/works/dart-detail-2.jpg" alt="Detail of a DART series drawing: pink and gold ink lines tracing an asteroid surface" loading="lazy"></div>
+            <h3>mission suicide — DART series</h3>
+            <p>On 26 September 2022, the DART probe crashed into the asteroid Dimorphos to test whether we could change its course. Just before impact it sent back its last images, the closest ever taken of an asteroid's surface. These final signals are what the machine draws.</p>
+            <table class="mono">
+                <tr><td>signal</td><td>last images before impact, dimorphos</td></tr>
+                <tr><td>medium</td><td>plotter, pigmented ink and india ink on cardboard</td></tr>
+                <tr><td>year</td><td>2025</td></tr>
+            </table>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <h2 class="section-title">Get in Touch</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <p><i class="fas fa-envelope"></i> info@studiobunt.com</p>
-                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                <p><i class="fas fa-map-marker-alt"></i> Studio Location, City, Country</p>
-                <div class="social-links">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-            <form class="contact-form">
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" rows="5" required></textarea>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
+        <div class="card">
+            <div class="frame"><img src="images/works/mars-soundscape-detail.jpg" alt="Copper-coloured plotter drawing of a sound spectrum, like a mountain range" loading="lazy"></div>
+            <h3>mars soundscape</h3>
+            <p>The first sound of wind on Mars, received on 24 December 2021 and sped up a hundred times to become audible — drawn as its wave spectrum.</p>
+            <table class="mono">
+                <tr><td>signal</td><td>martian wind, ×100</td></tr>
+                <tr><td>medium</td><td>plotter, pigmented ink and india ink on paper</td></tr>
+                <tr><td>year</td><td>2025</td></tr>
+            </table>
         </div>
-    </section>
 
-    <!-- Newsletter Signup -->
-    <section class="newsletter">
-        <div class="newsletter-content">
-            <h2>Stay Updated</h2>
-            <p>Subscribe to our newsletter for updates on new artwork, exhibitions, and events.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your Email" required>
-                <button type="submit" class="btn">Subscribe</button>
-            </form>
+        <div class="card">
+            <div class="frame"><img src="images/works/dynamic-landscape-2.jpg" alt="Plotter drawing in yellow and pink patches on black paper" loading="lazy"></div>
+            <h3>dynamic landscape II</h3>
+            <p>A study of time passing, perceived through the movement of clouds. Part of <i>lumières</i>.</p>
+            <table class="mono">
+                <tr><td>signal</td><td>passing clouds</td></tr>
+                <tr><td>medium</td><td>plotter, pigmented india ink on paper</td></tr>
+                <tr><td>year</td><td>2024</td></tr>
+            </table>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <h3>Studio Bunt</h3>
-                <p>Creating vibrant art experiences</p>
-            </div>
-            <div class="footer-links">
-                <ul>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
+        <div class="card">
+            <div class="frame"><img src="images/works/winter-afternoon-1.jpg" alt="White hatched rectangles of window light on black paper" loading="lazy"></div>
+            <h3>a winter afternoon I</h3>
+            <p>Light coming into a room as a metaphor for passing time — the languor of an afternoon spent looking out of the window.</p>
+            <table class="mono">
+                <tr><td>signal</td><td>light through a window</td></tr>
+                <tr><td>medium</td><td>drawing machine, acrylic marker on paper</td></tr>
+                <tr><td>year</td><td>2024 · with banotte</td></tr>
+            </table>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Studio Bunt. All rights reserved.</p>
-        </div>
-    </footer>
 
-    <!-- JavaScript -->
-    <script src="js/main.js"></script>
+        <div class="card">
+            <div class="frame"><img src="images/works/dart-3-4.jpg" alt="Framed DART drawing: a swirl of gold and pink lines on brown cardboard" loading="lazy"></div>
+            <h3>DART 3/4</h3>
+            <table class="mono">
+                <tr><td>signal</td><td>impact approach, dimorphos</td></tr>
+                <tr><td>medium</td><td>plotter, pigmented ink on cardboard</td></tr>
+                <tr><td>year</td><td>2025</td></tr>
+            </table>
+        </div>
+
+    </div>
+</section>
+
+<div class="quote">
+    The machine allows a line that is <em>not mediated by the body</em>. The artist's will stays sovereign — but it acts through the input given to the machine: a light, a smell, a sound, a spectrum of waves… the visible and invisible around us.
+</div>
+
+<!-- ============ RESEARCH ============ -->
+<section id="research" style="padding-top:0">
+    <div class="sec-head"><h2>research</h2><span class="mono dim">art × science</span></div>
+    <div class="grid">
+
+        <div class="card square">
+            <div class="frame"><img src="images/works/droplet-stress.jpg" alt="A droplet seen from above, colours showing internal stress" loading="lazy"></div>
+            <h3>a drop in space-time</h3>
+            <p>Droplets deposited in weightlessness: without gravity, the faintest forces — invisible on Earth — reveal the intrinsic nature of fluids.</p>
+            <table class="mono">
+                <tr><td>gravity</td><td>0 – 1 g</td></tr>
+                <tr><td>years</td><td>2021 – 2025</td></tr>
+            </table>
+        </div>
+
+        <div class="card square">
+            <div class="frame"><img src="images/works/apollo-crop.jpg" alt="Apollo 15 astronaut beside the lunar rover" loading="lazy"></div>
+            <h3>printing the lunar soil</h3>
+            <p>A new 3D-printing process using lunar dust, so that a base on the Moon could be built from local material only.</p>
+            <table class="mono">
+                <tr><td>material</td><td>lunar regolith</td></tr>
+                <tr><td>years</td><td>2017 – 2021</td></tr>
+            </table>
+            <div class="credit mono">photo © nasa / apollo 15</div>
+        </div>
+
+        <div class="card square">
+            <div class="frame"><img src="images/works/physical-poetics-poster.jpg" alt="Poster for Physical Poetics #4, micro-gravities" loading="lazy"></div>
+            <h3>physical poetics #4 — micro-gravities</h3>
+            <p>A three-week workshop with students of the Erg, “the concept of representation — between art and science”, followed by a group show and a public evening.</p>
+            <table class="mono">
+                <tr><td>where</td><td>erg, brussels</td></tr>
+                <tr><td>year</td><td>2020</td></tr>
+            </table>
+        </div>
+
+    </div>
+</section>
+
+<footer class="site-footer" id="contact">
+    <a class="big" href="mailto:olfa.dangelo@bunt-studio.com">olfa.dangelo@bunt-studio.com</a>
+    <div class="meta mono dim">
+        <a href="https://www.instagram.com/stu.dio.bunt/">instagram @stu.dio.bunt</a><br>
+        <!-- TODO: replace the text in the span below with the real SIRET number, then delete class="todo" -->
+        siret <span class="todo">[à compléter]</span><br>
+        © 2026 studio bunt
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>

@@ -1,243 +1,102 @@
-// Wait for the DOM to fully load
-document.addEventListener('DOMContentLoaded', () => {
-    // Nav menu toggle for mobile
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
-    
-    // Custom cursor
-    const cursor = document.querySelector('.cursor');
-    const cursorFollower = document.querySelector('.cursor-follower');
-    
-    // Scroll detection for header styling
-    const header = document.querySelector('header');
-    
-    // Smooth scrolling for nav links
-    const scrollLinks = document.querySelectorAll('a[href^="#"]');
-    
-    // Mobile Navigation Toggle
-    function toggleNav() {
-        // Toggle nav
-        nav.classList.toggle('nav-active');
-        
-        // Animate links
-        navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = '';
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-            }
-        });
-        
-        // Burger animation
-        burger.classList.toggle('toggle');
-    }
-    
-    if (burger) {
-        burger.addEventListener('click', toggleNav);
-    }
-    
-    // Close menu when a link is clicked
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (nav.classList.contains('nav-active')) {
-                toggleNav();
-            }
-        });
-    });
-    
-    // Custom cursor movement
-    if (cursor && cursorFollower) {
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.top = e.clientY + 'px';
-            cursor.style.left = e.clientX + 'px';
-            
-            cursorFollower.style.top = e.clientY + 'px';
-            cursorFollower.style.left = e.clientX + 'px';
-        });
-        
-        // Hover effects for interactive elements
-        const hoverElements = document.querySelectorAll('a, button, .art-item, .news-item');
-        
-        hoverElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursorFollower.style.borderColor = 'transparent';
-                cursor.style.backgroundColor = 'rgba(240, 98, 146, 0.8)';
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.borderColor = '#f06292';
-                cursor.style.backgroundColor = 'rgba(240, 98, 146, 0.5)';
-            });
-        });
-        
-        // Fix cursor disappearing when leaving the viewport
-        document.addEventListener('mouseout', () => {
-            cursor.style.display = 'none';
-            cursorFollower.style.display = 'none';
-        });
-        
-        document.addEventListener('mouseover', () => {
-            cursor.style.display = 'block';
-            cursorFollower.style.display = 'block';
-        });
-    }
-    
-    // Header scroll effect
-    if (header) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    }
-    
-    // Smooth scrolling
-    scrollLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            const targetId = link.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                const topOffset = targetElement.getBoundingClientRect().top + window.scrollY;
-                const headerHeight = header.offsetHeight;
-                
-                window.scrollTo({
-                    top: topOffset - headerHeight,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
-    // Animate elements on scroll
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.gallery-grid > div, .news-item, .about-content p, .section-title');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementPosition < windowHeight - 100) {
-                element.classList.add('fade-in');
-            }
-        });
-    };
-    
-    // Add CSS class for animation
-    const style = document.createElement('style');
-    style.textContent = `
-        .fade-in {
-            animation: fadeIn 1s ease forwards;
+/* studio bunt — live plotter
+   Any <canvas class="plot"> becomes a sheet: pens drift along a smooth flow field
+   and leave ink that never fades. The cursor (or a finger) bends their paths like a
+   light source; a click starts a new sheet. Optional readout: elements with ids
+   t, x, y, n inside the same .hero are updated.
+
+   Settings per canvas, as data attributes:
+     data-pens="70"     number of pens
+     data-seed="0"      shifts the flow field, so each page gets its own drawing
+     data-palette="pink,gold,copper"
+*/
+(function () {
+    const PALETTES = { pink: [242, 167, 195], gold: [243, 215, 122], copper: [232, 135, 91], paper: [236, 232, 225] };
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function startPlotter(canvas) {
+        const g = canvas.getContext('2d');
+        const hero = canvas.closest('.hero');
+        const out = id => hero ? hero.querySelector('#' + id) : null;
+        const nPens = +canvas.dataset.pens || 70;
+        const seed = +canvas.dataset.seed || 0;
+        const ramp = (canvas.dataset.palette || 'pink,gold,copper').split(',').map(n => PALETTES[n.trim()] || PALETTES.paper);
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        let W, H, pens = [], lines = 0, mx = -1e4, my = -1e4, visible = true;
+        const t0 = performance.now();
+
+        function colour(t) {
+            t = Math.max(0, Math.min(1, t)) * (ramp.length - 1);
+            const i = Math.min(ramp.length - 2, Math.floor(t)), f = t - i, a = ramp[i], b = ramp[i + 1] || a;
+            return 'rgb(' + a.map((v, k) => Math.round(v + (b[k] - v) * f)).join(',') + ')';
         }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        function angle(x, y, s) {
+            s += seed * 37;
+            return Math.sin(x * .0042 + s * .07) * 1.6 + Math.cos(y * .0051 - s * .05) * 1.4 + Math.sin((x + y) * .0023 + seed) * 1.1;
+        }
+        const newPen = () => ({ x: Math.random() * W, y: Math.random() * H, life: 200 + Math.random() * 400 });
+
+        function newSheet() {
+            W = canvas.clientWidth; H = canvas.clientHeight;
+            canvas.width = W * dpr; canvas.height = H * dpr;
+            g.setTransform(dpr, 0, 0, dpr, 0, 0);
+            g.fillStyle = getComputedStyle(document.body).backgroundColor;
+            g.fillRect(0, 0, W, H);
+            pens = Array.from({ length: nPens }, newPen);
+            for (let i = 0; i < 500; i++) step(i / 60);   // open on a drawing already in progress
+        }
+
+        function step(s) {
+            g.lineWidth = .7;
+            g.globalAlpha = .22;
+            for (let i = 0; i < pens.length; i++) {
+                const p = pens[i];
+                let a = angle(p.x, p.y, s);
+                const dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+                if (d2 < 40000) a += Math.atan2(dy, dx) * (1 - d2 / 40000) * 1.2;
+                const nx = p.x + Math.cos(a) * 1.6, ny = p.y + Math.sin(a) * 1.6;
+                g.strokeStyle = colour(p.y / H * .7 + p.x / W * .3);
+                g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(nx, ny); g.stroke();
+                p.x = nx; p.y = ny; p.life--; lines++;
+                if (p.life < 0 || p.x < 0 || p.x > W || p.y < 0 || p.y > H) pens[i] = newPen();
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            g.globalAlpha = 1;
         }
-        
-        @keyframes navLinkFade {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+
+        function pointer(e) {
+            const r = canvas.getBoundingClientRect();
+            const pt = e.touches ? e.touches[0] : e;
+            mx = pt.clientX - r.left; my = pt.clientY - r.top;
         }
-        
-        .toggle .line1 {
-            transform: rotate(-45deg) translate(-5px, 6px);
+        window.addEventListener('mousemove', pointer);
+        canvas.addEventListener('touchmove', pointer, { passive: true });
+        canvas.addEventListener('click', newSheet);
+        let resizeTimer;
+        window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(newSheet, 200); });
+
+        // Pause when scrolled out of view, to spare laptops and phones.
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(canvas);
         }
-        
-        .toggle .line2 {
-            opacity: 0;
-        }
-        
-        .toggle .line3 {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Initialize scroll animation
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on page load
-    
-    // Form submission handling
-    const contactForm = document.querySelector('.contact-form');
-    const newsletterForm = document.querySelector('.newsletter-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Here you would normally send the form data to your server
-            // For now, we'll just show a success message
-            const formElements = contactForm.elements;
-            const formData = {};
-            
-            for (let i = 0; i < formElements.length; i++) {
-                const element = formElements[i];
-                if (element.name) {
-                    formData[element.name] = element.value;
+
+        newSheet();
+        if (reduceMotion) return;   // static drawing only
+
+        const tEl = out('t'), xEl = out('x'), yEl = out('y'), nEl = out('n');
+        (function loop(now) {
+            if (visible) {
+                const s = (now - t0) / 1000;
+                for (let k = 0; k < 3; k++) step(500 / 60 + s);
+                if (tEl) {
+                    const S = Math.floor(s);
+                    tEl.textContent = [S / 3600 | 0, (S / 60 | 0) % 60, S % 60].map(v => String(v).padStart(2, '0')).join(':');
                 }
+                if (xEl) xEl.textContent = Math.max(0, Math.round(mx));
+                if (yEl) yEl.textContent = Math.max(0, Math.round(my));
+                if (nEl) nEl.textContent = lines.toLocaleString('en').replace(/,/g, ' ');
             }
-            
-            // Reset the form
-            contactForm.reset();
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
-            successMessage.style.color = '#28a745';
-            successMessage.style.marginTop = '1rem';
-            successMessage.style.fontWeight = 'bold';
-            
-            contactForm.appendChild(successMessage);
-            
-            // Remove message after 5 seconds
-            setTimeout(() => {
-                successMessage.remove();
-            }, 5000);
-        });
+            requestAnimationFrame(loop);
+        })(performance.now());
     }
-    
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Similar to contact form
-            newsletterForm.reset();
-            
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.textContent = 'Thank you for subscribing to our newsletter!';
-            successMessage.style.color = 'white';
-            successMessage.style.marginTop = '1rem';
-            successMessage.style.fontWeight = 'bold';
-            
-            newsletterForm.appendChild(successMessage);
-            
-            setTimeout(() => {
-                successMessage.remove();
-            }, 5000);
-        });
-    }
-});
+
+    document.querySelectorAll('canvas.plot').forEach(startPlotter);
+})();
