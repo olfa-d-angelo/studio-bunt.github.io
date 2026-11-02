@@ -100,3 +100,72 @@
 
     document.querySelectorAll('canvas.plot').forEach(startPlotter);
 })();
+
+/* Work images: fade in on scroll, open large on click. */
+(function () {
+    const imgs = document.querySelectorAll('.work-images img');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const io = new IntersectionObserver(entries => entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        }), { rootMargin: '0px 0px -8% 0px' });
+        document.querySelectorAll('.work-images figure').forEach(f => { f.classList.add('reveal'); io.observe(f); });
+    }
+    const box = document.querySelector('.lightbox');
+    if (!box) return;
+    const big = box.querySelector('img');
+    const close = () => { box.hidden = true; big.removeAttribute('src'); };
+    imgs.forEach(img => img.addEventListener('click', () => { big.src = img.src; big.alt = img.alt; box.hidden = false; }));
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+
+/* Works list: click a row to open or close that work. A link to #dart (etc.) opens it. */
+(function () {
+    const works = document.querySelectorAll('.work');
+    function setOpen(work, open) {
+        work.classList.toggle('open', open);
+        const btn = work.querySelector('.work-head button');
+        if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    works.forEach(work => {
+        const btn = work.querySelector('.work-head button');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+            const open = !work.classList.contains('open');
+            setOpen(work, open);
+            if (open) history.replaceState(null, '', '#' + work.id);
+        });
+    });
+    // "see more": show only the first N works (data-visible on #works), the rest behind a button
+    const section = document.getElementById('works');
+    const limit = section ? parseInt(section.dataset.visible, 10) || 0 : 0;
+    let moreBtn = null;
+    function showAll() {
+        works.forEach(w => w.classList.remove('extra'));
+        if (moreBtn) moreBtn.parentElement.remove();
+    }
+    if (limit && works.length > limit) {
+        works.forEach((w, i) => { if (i >= limit) w.classList.add('extra'); });
+        const wrap = document.createElement('div');
+        wrap.className = 'works-more';
+        moreBtn = document.createElement('button');
+        moreBtn.type = 'button';
+        moreBtn.className = 'see-more';
+        moreBtn.textContent = 'see more works (' + (works.length - limit) + ')';
+        moreBtn.addEventListener('click', showAll);
+        wrap.appendChild(moreBtn);
+        works[works.length - 1].after(wrap);
+    }
+
+    function openFromHash() {
+        const id = location.hash.slice(1);
+        const work = id && document.getElementById(id);
+        if (work && work.classList.contains('work')) {
+            if (work.classList.contains('extra')) showAll();
+            setOpen(work, true);
+            setTimeout(() => work.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
+    }
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+})();

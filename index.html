@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>studio bunt</title>
-    <meta name="description" content="studio bunt is an art collective building drawing machines that translate light, sound and signals from space into ink.">
+    <meta name="description" content="studio bunt: an art collective building machines to capture light, sound, signals from space or time passing, and draws them.">
     <meta property="og:title" content="studio bunt">
-    <meta property="og:description" content="Drawing machines that listen to light, sound and signals from space.">
+    <meta property="og:description" content="an art collective building machines to capture light, sound, signals from space or time passing, and draws them">
     <meta property="og:image" content="https://bunt-studio.com/images/works/dart-detail-2.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,6 @@
     <a class="wordmark" href="index.html">studio bunt</a>
     <nav>
         <a href="#works">works</a>
-        <a href="#research">research</a>
         <a href="people.html">people</a>
         <a href="#contact">contact</a>
     </nav>
@@ -27,135 +26,170 @@
 
 <section class="hero" style="padding:0">
     <canvas class="plot" data-pens="70" aria-hidden="true"></canvas>
-    <div class="hint mono">move the cursor to bend the ink · click for a new sheet</div>
     <div class="copy">
         <h1>studio bunt</h1>
-        <p>An art collective building drawing machines that listen to light, sound and signals from space — and slowly write them down.</p>
-    </div>
-    <div class="readout mono">
-        sensor · light<br>
-        t = <b id="t">00:00:00</b><br>
-        x = <b id="x">0</b> · y = <b id="y">0</b><br>
-        lines drawn · <b id="n">0</b>
+        <p>an art collective<br>
+            building machines<br>
+            to capture signals<br>
+            and draws them</p>
     </div>
 </section>
 
 <!-- ============ WORKS ============
-     To add a work: copy one <div class="card"> … </div> block, change the image and the text.
-     Add class "wide" to make a card span two columns. -->
-<section id="works">
-    <div class="sec-head"><h2>works</h2><span class="mono dim">plotter · ink · data</span></div>
-    <div class="grid">
+     Each work is one <article class="work">: a row in the list that opens on click.
+     To add a work: copy a whole article, give it a new id (also in aria-controls and the
+     panel id), number and colour (style="--c: var(--pink)" / gold / copper / paper),
+     then change the thumbnail, text and images.
+     Images: <figure class="full"> spans the width, "half" takes half, "offset" is a
+     narrower image pushed to the right. Clicking any image opens it large. -->
+<section id="works" data-visible="5">   <!-- how many works show before "see more" -->
+    <div class="sec-head"><h2>works</h2></div>
 
-        <div class="card wide">
-            <div class="frame"><img src="images/works/dart-detail-2.jpg" alt="Detail of a DART series drawing: pink and gold ink lines tracing an asteroid surface" loading="lazy"></div>
-            <h3>mission suicide — DART series</h3>
-            <p>On 26 September 2022, the DART probe crashed into the asteroid Dimorphos to test whether we could change its course. Just before impact it sent back its last images, the closest ever taken of an asteroid's surface. These final signals are what the machine draws.</p>
-            <table class="mono">
-                <tr><td>signal</td><td>last images before impact, dimorphos</td></tr>
-                <tr><td>medium</td><td>plotter, pigmented ink and india ink on cardboard</td></tr>
-                <tr><td>year</td><td>2025</td></tr>
-            </table>
+
+    <!-- 01 -->
+    <article class="work" id="dart" style="--c: var(--pink)">
+        <h3 class="work-head">
+            <button type="button" aria-expanded="false" aria-controls="dart-panel">
+                <span class="num mono">01</span>
+                <span class="title">suicide mission</span>
+                <span class="sub mono">DART series · 2025</span>
+                <img class="thumb" src="images/works/dart-detail-2.jpg" alt="" loading="lazy">
+                <span class="toggle" aria-hidden="true"></span>
+            </button>
+        </h3>
+        <div class="work-panel" id="dart-panel"><div class="work-panel-inner">
+        <div class="work-body">
+            <div class="work-text">
+                <p>On 26 September 2022, the DART probe — <i>double asteroid redirection test</i> — crashed straight into the asteroid Dimorphos, to test for the first time whether we could change an asteroid's course. A suicide mission: the probe disintegrated on impact.</p>
+                <p>Just before the crash, it sent back its last images, the closest ever taken of an asteroid's surface. Those final signals are what the machine draws: the point of collision, the surface coming closer second after second… until the impact.</p>
+                <table class="mono">
+                    <tr><td>artist</td><td class="name"><a href="people.html#olfa-dangelo">Olfa D'Angelo</a></td></tr>
+                    <tr><td>signal</td><td>last images before impact during <a class="ext" href="https://en.wikipedia.org/wiki/Double_Asteroid_Redirection_Test" target="_blank" rel="noopener" title="Double Asteroid Redirection Test — Wikipedia">DART</a> mission</td></tr>
+                    <tr><td>medium</td><td>plotter, pigmented ink and india ink on cardboard</td></tr>
+                    <tr><td>series</td><td>4 drawings</td></tr>
+                    <tr><td>year</td><td>2025</td></tr>
+                </table>
+            </div>
+            <div class="work-images">
+                <figure class="half"><img src="images/works/dart-2-4.jpg" alt="Framed drawing, DART 2/4: pink and gold lines on dark cardboard" loading="lazy"><figcaption class="mono">DART 2/4</figcaption></figure>
+                <figure class="half"><img src="images/works/dart-3-4.jpg" alt="Framed drawing, DART 3/4: a swirl of gold and pink lines" loading="lazy"><figcaption class="mono">DART 3/4</figcaption></figure>
+                <figure class="half"><img src="images/works/dart-detail-1.jpg" alt="Close-up of fine concentric ink lines" loading="lazy"><figcaption class="mono">detail</figcaption></figure>
+                <figure class="half"><img src="images/works/dart-detail-2.jpg" alt="Close-up of the asteroid surface in pink and gold ink" loading="lazy"><figcaption class="mono">detail</figcaption></figure>
+                <figure class="full"><img src="images/works/dart-plotter.jpg" alt="The plotter drawing on cardboard" loading="lazy"><figcaption class="mono">the machine at work</figcaption></figure>
+            </div>
         </div>
+        </div></div>
+    </article>
 
-        <div class="card">
-            <div class="frame"><img src="images/works/mars-soundscape-detail.jpg" alt="Copper-coloured plotter drawing of a sound spectrum, like a mountain range" loading="lazy"></div>
-            <h3>mars soundscape</h3>
-            <p>The first sound of wind on Mars, received on 24 December 2021 and sped up a hundred times to become audible — drawn as its wave spectrum.</p>
-            <table class="mono">
-                <tr><td>signal</td><td>martian wind, ×100</td></tr>
-                <tr><td>medium</td><td>plotter, pigmented ink and india ink on paper</td></tr>
-                <tr><td>year</td><td>2025</td></tr>
-            </table>
+    <!-- 02 -->
+    <article class="work" id="mars" style="--c: var(--copper)">
+        <h3 class="work-head">
+            <button type="button" aria-expanded="false" aria-controls="mars-panel">
+                <span class="num mono">02</span>
+                <span class="title">mars soundscape</span>
+                <span class="sub mono">orange/copper · 2025</span>
+                <img class="thumb" src="images/works/mars-soundscape-detail.jpg" alt="" loading="lazy">
+                <span class="toggle" aria-hidden="true"></span>
+            </button>
+        </h3>
+        <div class="work-panel" id="mars-panel"><div class="work-panel-inner">
+        <div class="work-body">
+            <div class="work-text">
+                <p>On 24 December 2021, scientists from Toulouse in France were among the first to receive this signal from Mars. Sped up a hundred times, the recorded vibrations became audible to the human ear.</p>
+                <p>The drawing holds that unique moment — the first time we could hear the wind blowing on Mars — traced as its wave spectrum, after transformation.</p>
+                <table class="mono">
+                    <tr><td>artist</td><td class="name"><a href="people.html#olfa-dangelo">Olfa D'Angelo</a></td></tr>
+                    <tr><td>signal</td><td>martian wind, ×100</td></tr>
+                    <tr><td>medium</td><td>plotter, pigmented ink and india ink on paper</td></tr>
+                    <tr><td>year</td><td>2025</td></tr>
+                </table>
+            </div>
+            <div class="work-images">
+                <figure class="full"><img src="images/works/mars-soundscape.jpg" alt="Copper drawing of a sound spectrum, clipped to a wooden board" loading="lazy"><figcaption class="mono">mars soundscape — orange/copper</figcaption></figure>
+                <figure class="offset"><img src="images/works/mars-soundscape-detail.jpg" alt="Close-up of the stacked wave lines" loading="lazy"><figcaption class="mono">detail</figcaption></figure>
+            </div>
         </div>
+        </div></div>
+    </article>
 
-        <div class="card">
-            <div class="frame"><img src="images/works/dynamic-landscape-2.jpg" alt="Plotter drawing in yellow and pink patches on black paper" loading="lazy"></div>
-            <h3>dynamic landscape II</h3>
-            <p>A study of time passing, perceived through the movement of clouds. Part of <i>lumières</i>.</p>
-            <table class="mono">
-                <tr><td>signal</td><td>passing clouds</td></tr>
-                <tr><td>medium</td><td>plotter, pigmented india ink on paper</td></tr>
-                <tr><td>year</td><td>2024</td></tr>
-            </table>
+    <!-- 03 -->
+    <article class="work" id="dynamic-landscape" style="--c: var(--gold)">
+        <h3 class="work-head">
+            <button type="button" aria-expanded="false" aria-controls="dynamic-landscape-panel">
+                <span class="num mono">03</span>
+                <span class="title">dynamic landscape II</span>
+                <span class="sub mono">lumières · 2024</span>
+                <img class="thumb" src="images/works/dynamic-landscape-2.jpg" alt="" loading="lazy">
+                <span class="toggle" aria-hidden="true"></span>
+            </button>
+        </h3>
+        <div class="work-panel" id="dynamic-landscape-panel"><div class="work-panel-inner">
+        <div class="work-body">
+            <div class="work-text">
+                <p>A study of the perception of time passing, through the movement of clouds. Part of <i>lumières</i>, a project on how light — and its changes — shapes our sense of time and space.</p>
+                <table class="mono">
+                    <tr><td>artist</td><td class="name"><a href="people.html#olfa-dangelo">Olfa D'Angelo</a></td></tr>
+                    <tr><td>signal</td><td>passing clouds</td></tr>
+                    <tr><td>medium</td><td>plotter, pigmented india ink on paper</td></tr>
+                    <tr><td>year</td><td>2024</td></tr>
+                </table>
+            </div>
+            <div class="work-images">
+                <figure class="full"><img src="images/works/dynamic-landscape-2.jpg" alt="Yellow and pink patches of ink on black paper, the plotter pen above" loading="lazy"><figcaption class="mono">in progress</figcaption></figure>
+                <figure class="offset"><img src="images/works/dynamic-landscape-2-installed.jpg" alt="The drawing hung on a bookshelf" loading="lazy"><figcaption class="mono">installed</figcaption></figure>
+            </div>
         </div>
+        </div></div>
+    </article>
 
-        <div class="card">
-            <div class="frame"><img src="images/works/winter-afternoon-1.jpg" alt="White hatched rectangles of window light on black paper" loading="lazy"></div>
-            <h3>a winter afternoon I</h3>
-            <p>Light coming into a room as a metaphor for passing time — the languor of an afternoon spent looking out of the window.</p>
-            <table class="mono">
-                <tr><td>signal</td><td>light through a window</td></tr>
-                <tr><td>medium</td><td>drawing machine, acrylic marker on paper</td></tr>
-                <tr><td>year</td><td>2024 · with banotte</td></tr>
-            </table>
+    <!-- 04 -->
+    <article class="work" id="winter-afternoon" style="--c: var(--paper)">
+        <h3 class="work-head">
+            <button type="button" aria-expanded="false" aria-controls="winter-afternoon-panel">
+                <span class="num mono">04</span>
+                <span class="title">a winter afternoon</span>
+                <span class="sub mono">I &amp; II · 2024</span>
+                <img class="thumb" src="images/works/winter-afternoon-1.jpg" alt="" loading="lazy">
+                <span class="toggle" aria-hidden="true"></span>
+            </button>
+        </h3>
+        <div class="work-panel" id="winter-afternoon-panel"><div class="work-panel-inner">
+        <div class="work-body">
+            <div class="work-text">
+                <p>Light entering a room becomes a metaphor for passing time. The drawings recreate the languor of an afternoon spent looking out of the window.</p>
+                <p>The machine captures the variations of light in its surroundings over time and translates them into lines — a trace not mediated by the body.</p>
+                <table class="mono">
+                    <tr><td>artist</td><td class="name"><a href="people.html#felix-kuthe">Felix Kuthe</a></td></tr>
+                    <tr><td>signal</td><td>light through a window</td></tr>
+                    <tr><td>medium</td><td>drawing machine, acrylic marker on paper</td></tr>
+                    <tr><td>year</td><td>2024</td></tr>
+                </table>
+            </div>
+            <div class="work-images">
+                <figure class="offset left"><img src="images/works/winter-afternoon-1.jpg" alt="White hatched rectangles of window light on black paper" loading="lazy"><figcaption class="mono">a winter afternoon I</figcaption></figure>
+                <figure class="full"><img src="images/works/winter-afternoon-2.jpg" alt="Grey hatched lines of light on cream paper" loading="lazy"><figcaption class="mono">a winter afternoon II</figcaption></figure>
+            </div>
         </div>
-
-        <div class="card">
-            <div class="frame"><img src="images/works/dart-3-4.jpg" alt="Framed DART drawing: a swirl of gold and pink lines on brown cardboard" loading="lazy"></div>
-            <h3>DART 3/4</h3>
-            <table class="mono">
-                <tr><td>signal</td><td>impact approach, dimorphos</td></tr>
-                <tr><td>medium</td><td>plotter, pigmented ink on cardboard</td></tr>
-                <tr><td>year</td><td>2025</td></tr>
-            </table>
-        </div>
-
-    </div>
+        </div></div>
+    </article>
 </section>
 
 <div class="quote">
     The machine allows a line that is <em>not mediated by the body</em>. The artist's will stays sovereign — but it acts through the input given to the machine: a light, a smell, a sound, a spectrum of waves… the visible and invisible around us.
 </div>
 
-<!-- ============ RESEARCH ============ -->
-<section id="research" style="padding-top:0">
-    <div class="sec-head"><h2>research</h2><span class="mono dim">art × science</span></div>
-    <div class="grid">
-
-        <div class="card square">
-            <div class="frame"><img src="images/works/droplet-stress.jpg" alt="A droplet seen from above, colours showing internal stress" loading="lazy"></div>
-            <h3>a drop in space-time</h3>
-            <p>Droplets deposited in weightlessness: without gravity, the faintest forces — invisible on Earth — reveal the intrinsic nature of fluids.</p>
-            <table class="mono">
-                <tr><td>gravity</td><td>0 – 1 g</td></tr>
-                <tr><td>years</td><td>2021 – 2025</td></tr>
-            </table>
-        </div>
-
-        <div class="card square">
-            <div class="frame"><img src="images/works/apollo-crop.jpg" alt="Apollo 15 astronaut beside the lunar rover" loading="lazy"></div>
-            <h3>printing the lunar soil</h3>
-            <p>A new 3D-printing process using lunar dust, so that a base on the Moon could be built from local material only.</p>
-            <table class="mono">
-                <tr><td>material</td><td>lunar regolith</td></tr>
-                <tr><td>years</td><td>2017 – 2021</td></tr>
-            </table>
-            <div class="credit mono">photo © nasa / apollo 15</div>
-        </div>
-
-        <div class="card square">
-            <div class="frame"><img src="images/works/physical-poetics-poster.jpg" alt="Poster for Physical Poetics #4, micro-gravities" loading="lazy"></div>
-            <h3>physical poetics #4 — micro-gravities</h3>
-            <p>A three-week workshop with students of the Erg, “the concept of representation — between art and science”, followed by a group show and a public evening.</p>
-            <table class="mono">
-                <tr><td>where</td><td>erg, brussels</td></tr>
-                <tr><td>year</td><td>2020</td></tr>
-            </table>
-        </div>
-
-    </div>
-</section>
+<!-- research section removed for now (see git history to bring it back) -->
 
 <footer class="site-footer" id="contact">
     <a class="big" href="mailto:olfa.dangelo@bunt-studio.com">olfa.dangelo@bunt-studio.com</a>
     <div class="meta mono dim">
         <a href="https://www.instagram.com/stu.dio.bunt/">instagram @stu.dio.bunt</a><br>
-        <!-- TODO: replace the text in the span below with the real SIRET number, then delete class="todo" -->
-        siret <span class="todo">[à compléter]</span><br>
+        siret <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/99263388300010" target="_blank" rel="noopener">992 633 883 00010</a><br>
         © 2026 studio bunt
     </div>
 </footer>
+
+<div class="lightbox" hidden><img alt=""><span class="mono">click or esc to close</span></div>
 
 <script src="js/main.js"></script>
 </body>
